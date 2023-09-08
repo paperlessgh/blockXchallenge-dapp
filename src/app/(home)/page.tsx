@@ -14,7 +14,9 @@ export default function Home() {
         {/* category filter */}
         <CategoryFilter />
         {/* items count */}
-        <div className="mt-2 whitespace-nowrap text-right text-skin-text xs:ml-auto xs:mt-0">29K space(s)</div>
+        <div className="mt-2 whitespace-nowrap text-right text-skin-text xs:ml-auto xs:mt-0">
+          29K space(s)
+        </div>
       </div>
       {/* items */}
       <Challenges />
