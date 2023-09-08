@@ -19,7 +19,7 @@ const EllipsisMenuButton = () => {
           className="text-skin-link"
         />
       </Popover.Button>
-      <div className="absolute z-50 inset-[0px_auto_auto_0px] tranform -translate-x-[350px] translate-y-[62px]">
+      <div className="absolute z-50 right-3 transform translate-y-[20px]">
         <Popover.Panel className="w-screen max-w-xs outline-none sm:max-w-sm">
           <div className="overflow-hidden rounded-2xl border bg-skin-header-bg shadow-lg">
             <div className="no-scrollbar max-h-[85vh] overflow-y-auto overscroll-contain">
