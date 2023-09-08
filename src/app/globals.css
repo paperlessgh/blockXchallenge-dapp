@@ -3,25 +3,108 @@
 @tailwind utilities;
 
 :root {
+  /* shadcn */
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  /* custom */
+  --primary-color: #384aff;
+  --bg-color: white;
+  --text-color: #57606a;
+  --link-color: #444444;
+  --heading-color: #111111;
+  --border-color: #e0e0e0;
+  --header-bg: white;
+  --block-bg: transparent;
+  --shadow-color: #0001;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* shadcn */
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+    /* custom */
+    color-scheme: dark;
+    --primary-color: #384aff;
+    --bg-color: #1c1b20;
+    --text-color: #8b949e;
+    --link-color: #ffffff;
+    --heading-color: #ffffff;
+    --border-color: #2d2d2d;
+    --header-bg: #1c1b20;
+    --block-bg: transparent;
+    --shadow-color: rgba(255, 255, 255, 0.036);
   }
 }
 
+/* custom base styles */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    color: var(--heading-color);
+  }
+
+  .border,
+  .border-md,
+  .border-lg,
+  .border-b,
+  .border-t,
+  .border-r,
+  .border-l {
+    border-color: var(--border-color);
+  }
+}
+
+/* custom components styles */
+@layer components {
+}
+
+/* custom utilities styles */
+@layer utilities {
+  .button {
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+    color: var(--link-color);
+    border-radius: 23px;
+    height: 46px;
+    font-size: 18px;
+  }
+
+  .button:hover {
+    color: var(--link-color);
+    border-color: var(--text-color);
+  }
+
+  .s-input {
+    display: block;
+    width: 100%;
+    border-radius: 9999px;
+    border-width: 1px;
+    background-color: var(--bg-color);
+    padding: 8px 16px;
+    color: var(--link-color);
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-color: var(--border-color) !important;
+  }
+
+  .shadow-lg {
+    --tw-shadow: 2px 4px 9px var(--shadow-color);
+    --tw-shadow-colored: 2px 4px 9px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+}
+
+/* custom theme styles */
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--text-color);
+  background: var(--bg-color);
 }
