@@ -27,7 +27,7 @@ const Header = () => {
                 aria-current="page"
               >
                 {" "}
-                BlockXChallenge{" "}
+                Challenge Pool{" "}
               </Link>
             </div>
             <div className="flex space-x-2">

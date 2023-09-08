@@ -1,8 +1,16 @@
+// next
+import Image from "next/image";
 // imports
 import { XIcon, ActivityIcon, PlusIcon } from "lucide-react";
 
 // shared components
 import { IconButton } from "@/components/shared";
+
+// lib / uitls
+import { CustomImageLoader } from "@/lib/utils";
+
+// static assets
+import logo from "@public/assets/logos/logo2.png";
 
 const Sidebar = () => {
   return (
@@ -12,7 +20,16 @@ const Sidebar = () => {
           {/* logo */}
           <div className="w-full">
             <div className="flex h-[70px] items-center justify-center">
-              <XIcon width={35} height={35} className="text-white" />
+              <Image
+                src={logo}
+                alt="logo"
+                width={40}
+                height={40}
+                unoptimized
+                loader={CustomImageLoader}
+                className="object-contain rounded-full"
+              />
+              {/* <XIcon width={35} height={35} className="text-white" /> */}
             </div>
           </div>
           {/* activity icon*/}
