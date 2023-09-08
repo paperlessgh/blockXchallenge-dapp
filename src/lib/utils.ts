@@ -1,3 +1,5 @@
+"use client";
+
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
  
@@ -10,6 +12,7 @@ export const CustomImageLoader = ({ src, width, quality }: {
   width: number;
   quality?: number;
 }) => {
+  "use client";
   if (src.startsWith("http")) {
     return src;
   }
