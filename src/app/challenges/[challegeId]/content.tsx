@@ -2,6 +2,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
+// lib / utils
+import { CustomImageLoader } from "@/lib/utils";
+
 const Content = () => {
   return (
     <div
@@ -88,6 +91,8 @@ const Content = () => {
                             alt="avatar"
                             width={20}
                             height={20}
+                            unoptimized
+                            loader={CustomImageLoader}
                             className="min-w-[20px] w-[20px] h-[20px] rounded-full bg-skin-border object-cover"
                           />
                         </div>

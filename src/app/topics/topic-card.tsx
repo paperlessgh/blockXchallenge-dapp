@@ -2,6 +2,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
+// lib / uitls
+import { CustomImageLoader } from "@/lib/utils";
+
 const TopicCard = () => {
   return (
     <div>
@@ -15,6 +18,8 @@ const TopicCard = () => {
                   width={164}
                   height={164}
                   alt="avatar"
+                  unoptimized
+                  loader={CustomImageLoader}
                   className="min-w-[82px] w-[82px] h-[92px] rounded-full bg-skin-border object-cover"
                 />
               </div>

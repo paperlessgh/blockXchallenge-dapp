@@ -3,6 +3,9 @@ import Image from "next/image";
 // imports
 import { VerifiedIcon } from "lucide-react";
 
+// lib / uitls
+import { CustomImageLoader } from "@/lib/utils";
+
 const Sidebar = () => {
   return (
     <div className="float-left w-full lg:w-1/4">
@@ -13,15 +16,13 @@ const Sidebar = () => {
               <div className="relative block px-[20px] text-center md:flex md:px-3 md:pt-3 lg:block lg:pb-[24px]">
                 <div>
                   <div symbol-index="space" className="mr-3">
-                    {/* <Image
-                      className="min-w-[48px] w-[48px] h-[48px] rounded-full bg-skin-border object-cover"
-                      alt="avatar"
-                    /> */}
                     <Image
                       src="https://cdn.stamp.fyi/space/magicappstore.eth?s=96&amp;cb=3838996002ea1b70"
                       alt="avatar"
                       width={48}
                       height={48}
+                      unoptimized
+                      loader={CustomImageLoader}
                       className="min-w-[48px] w-[48px] h-[48px] rounded-full bg-skin-border object-cover"
                     />
                   </div>

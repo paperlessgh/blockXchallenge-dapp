@@ -4,6 +4,9 @@ import Image from "next/image";
 // imports
 import { VerifiedIcon } from "lucide-react";
 
+// lib / uitls
+import {CustomImageLoader} from "@/lib/utils";
+
 const ChallengeItem = () => {
   return (
     <div>
@@ -17,6 +20,8 @@ const ChallengeItem = () => {
                   width={164}
                   height={164}
                   alt="avatar"
+                  unoptimized
+                  loader={CustomImageLoader}
                   className="min-w-[82px] w-[82px] h-[82px] rounded-full bg-skin-border object-cover"
                 />
               </div>

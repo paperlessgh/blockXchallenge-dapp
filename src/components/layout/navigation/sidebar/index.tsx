@@ -6,6 +6,9 @@ import { XIcon, ActivityIcon, PlusIcon } from "lucide-react";
 // shared components
 import { IconButton } from "@/components/shared";
 
+// lib / uitls
+import { CustomImageLoader } from "@/lib/utils";
+
 // static assets
 import logo from "@public/assets/logos/logo2.png";
 
@@ -22,6 +25,8 @@ const Sidebar = () => {
                 alt="logo"
                 width={40}
                 height={40}
+                unoptimized
+                loader={CustomImageLoader}
                 className="object-contain rounded-full"
               />
               {/* <XIcon width={35} height={35} className="text-white" /> */}
