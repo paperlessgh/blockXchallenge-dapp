@@ -1,17 +1,13 @@
+// next
+import Link from "next/link";
 // import
 import { Popover } from "@headlessui/react";
 import { MoreHorizontalIcon } from "lucide-react";
 
-// shared components
-import { IconButton } from "@/components/shared";
-
 const EllipsisMenuButton = () => {
   return (
     <Popover className="relative">
-      <Popover.Button
-        // as={IconButton}
-        className="!w-[46px] !h-[46px] flex cursor-pointer select-none items-center justify-center rounded-full border hover:border-skin-text relative"
-      >
+      <Popover.Button className="!w-[46px] !h-[46px] flex cursor-pointer select-none items-center justify-center rounded-full border hover:border-skin-text relative">
         <MoreHorizontalIcon
           fill="none"
           width="1.2em"
@@ -32,27 +28,24 @@ const EllipsisMenuButton = () => {
                   {/* todo: header */}
                   {/* menu items */}
                   <div className="group m-4 my-[30px]">
-                    <button
+                    <Link
+                      href={"/topics"}
                       className="block w-full cursor-pointer py-1 text-left text-xl text-skin-link hover:!text-skin-link hover:!opacity-100 group-hover:text-skin-text group-hover:opacity-70"
-                      type="button"
-                      data-headlessui-state="open"
                     >
                       Explore Topics
-                    </button>
-                    <button
+                    </Link>
+                    <Link
+                      href={"/challenges"}
                       className="block w-full cursor-pointer py-1 text-left text-xl text-skin-link hover:!text-skin-link hover:!opacity-100 group-hover:text-skin-text group-hover:opacity-70"
-                      type="button"
-                      data-headlessui-state="open"
                     >
                       Explore Challenges
-                    </button>
-                    <button
+                    </Link>
+                    <Link
+                      href={"/create-challenge"}
                       className="block w-full cursor-pointer py-1 text-left text-xl text-skin-link hover:!text-skin-link hover:!opacity-100 group-hover:text-skin-text group-hover:opacity-70"
-                      type="button"
-                      data-headlessui-state="open"
                     >
                       Create a challenge
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

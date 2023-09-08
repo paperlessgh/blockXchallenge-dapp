@@ -82,6 +82,13 @@
     border-color: var(--text-color);
   }
 
+  .button.button--primary,
+  .button.button--primary:hover {
+    color: #fff;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+
   .s-input {
     display: block;
     width: 100%;

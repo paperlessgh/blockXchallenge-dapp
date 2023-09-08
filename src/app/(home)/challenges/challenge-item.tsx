@@ -7,7 +7,7 @@ import { VerifiedIcon } from "lucide-react";
 const ChallengeItem = () => {
   return (
     <div>
-      <Link href="#">
+      <Link href="/challenges/1">
         <div className="border-y border-skin-border bg-skin-block-bg text-base md:rounded-xl md:border mb-0 flex items-center justify-center text-center transition-all hover:border-skin-text">
           <div className="p-4 leading-5 sm:leading-6">
             <div className="relative mb-2 inline-block">
