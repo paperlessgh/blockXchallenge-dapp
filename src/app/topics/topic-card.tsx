@@ -1,8 +1,6 @@
 // next
 import Link from "next/link";
 import Image from "next/image";
-// imports
-import { VerifiedIcon } from "lucide-react";
 
 const TopicCard = () => {
   return (
