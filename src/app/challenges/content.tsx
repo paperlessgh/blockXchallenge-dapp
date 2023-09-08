@@ -1,11 +1,17 @@
+"use client";
+
 // next
 import Link from "next/link";
 import Image from "next/image";
+import { useSearchParams } from 'next/navigation'
 
 // lib / utils
 import { CustomImageLoader } from "@/lib/utils";
 
 const Content = () => {
+  const searchParams = useSearchParams();
+  const challengeId = searchParams.get('id');
+
   return (
     <div
       id="content-right"

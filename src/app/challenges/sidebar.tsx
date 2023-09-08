@@ -1,5 +1,8 @@
+"use client";
+
 // next
 import Image from "next/image";
+import { useSearchParams } from 'next/navigation'
 // imports
 import { VerifiedIcon } from "lucide-react";
 
@@ -7,6 +10,9 @@ import { VerifiedIcon } from "lucide-react";
 import { CustomImageLoader } from "@/lib/utils";
 
 const Sidebar = () => {
+  const searchParams = useSearchParams();
+  const challengeId = searchParams.get('id');
+
   return (
     <div className="float-left w-full lg:w-1/4">
       <div className="-mt-[4px] mb-[20px] md:mt-0 lg:fixed lg:mb-0 lg:w-[240px]">
