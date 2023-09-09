@@ -3,9 +3,9 @@ const nextConfig = {
   output: "export",
   env: {
     APP_NAME: "BLockXChallenge",
-    ALCHEMY_ID: "b1b2b3b4b5b6b7b8b9b0",
-    WEB3_PROJECT_ID: "b1b2b3b4b5b6b7b8b9b0",
-    CONTRACT_ADDRESS: "0x5f4efaAE950d4C487B986987E32fDD34f9B732Fb",
+    ALCHEMY_ID: "cQDa5gfo9RWbuJdm8lHtProXtl4EzC0G",
+    WEB3_PROJECT_ID: "27e6943270a07950e2f59c099fc5d3f1",
+    CONTRACT_ADDRESS: "0x779537F265e508c3eCA407FfA342a64489C2d3C9",
   },
   images: {
     remotePatterns: [
