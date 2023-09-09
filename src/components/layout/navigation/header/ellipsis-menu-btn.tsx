@@ -4,7 +4,12 @@ import Link from "next/link";
 import { Popover } from "@headlessui/react";
 import { MoreHorizontalIcon } from "lucide-react";
 
+// hooks
+import { useChallengeModal } from "@/common/hooks";
+
 const EllipsisMenuButton = () => {
+  const { open } = useChallengeModal();
+
   return (
     <Popover className="relative">
       <Popover.Button className="!w-[46px] !h-[46px] flex cursor-pointer select-none items-center justify-center rounded-full border hover:border-skin-text relative">
@@ -40,12 +45,12 @@ const EllipsisMenuButton = () => {
                     >
                       Explore Challenges
                     </Link>
-                    <Link
-                      href={"/create-challenge"}
+                    <button
+                      onClick={open}
                       className="block w-full cursor-pointer py-1 text-left text-xl text-skin-link hover:!text-skin-link hover:!opacity-100 group-hover:text-skin-text group-hover:opacity-70"
                     >
                       Create a challenge
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>

@@ -1,11 +1,11 @@
+"use client";
+
 // next
 import Link from "next/link";
 import Image from "next/image";
-// imports
-import { VerifiedIcon } from "lucide-react";
 
 // lib / uitls
-import {CustomImageLoader} from "@/lib/utils";
+import { CustomImageLoader } from "@/lib/utils";
 
 const ChallengeItem = () => {
   return (
@@ -28,17 +28,36 @@ const ChallengeItem = () => {
             </div>
             <div className="flex items-center justify-center gap-1 truncate">
               <h3 className="mb-0 mt-0 !h-[32px] overflow-hidden pb-0 text-[22px] leading-8">
-                Magic Square
+                Topic
               </h3>
-              <div className="cursor-help pt-[1px]">
-                <VerifiedIcon
-                  size={20}
-                  fill="white"
-                  className="iconfont text-xl leading-5 stroke-skin-bg"
-                />
+            </div>
+            <div className="mb-4 text-skin-text">127K participating</div>
+            <div className="min-w-[250px] mb-3">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-skin-link">State:</span>
+                <span>Open</span>
+              </div>
+              <div className="w-full my-2 border-b border-dashed border-skin-text" />
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-skin-link">Asset:</span>
+                <span>BTC</span>
+              </div>
+              <div className="w-full my-2 border-b border-dashed border-skin-text" />
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-skin-link">Stake:</span>
+                <span>1.5 ETH</span>
+              </div>
+              <div className="w-full my-2 border-b border-dashed border-skin-text" />
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-skin-link">Pool:</span>
+                <span>100 ETH</span>
+              </div>
+              <div className="w-full my-2 border-b border-dashed border-skin-text" />
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-skin-link">Closes In:</span>
+                <span>2 days 3 hrs</span>
               </div>
             </div>
-            <div className="mb-[12px] text-skin-text">127K members</div>
             <div className="mx-auto">
               <button
                 type="button"

@@ -4,7 +4,7 @@ import ChallengeItem from "./challenge-item";
 const Challenges = () => {
   return (
     <div className="px-0 md:px-4 mx-auto max-w-[1012px]">
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {new Array(12).fill(0).map((_, index) => (
           <ChallengeItem key={index} />
         ))}
