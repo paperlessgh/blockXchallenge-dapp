@@ -4,10 +4,15 @@
 import Link from "next/link";
 import Image from "next/image";
 
+// hooks
+import { useJoinChallengeModal } from "@/common/hooks";
+
 // lib / uitls
 import { CustomImageLoader } from "@/lib/utils";
 
 const ChallengeItem = () => {
+  const { open } = useJoinChallengeModal();
+
   return (
     <div>
       <Link href="/challenges?id=1">
@@ -61,6 +66,7 @@ const ChallengeItem = () => {
             <div className="mx-auto">
               <button
                 type="button"
+                onClick={open}
                 className="button px-[22px] mx-auto group min-w-[125px]"
               >
                 <span>Join</span>

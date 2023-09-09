@@ -7,7 +7,7 @@ import { XIcon, ActivityIcon, PlusIcon } from "lucide-react";
 import { IconButton } from "@/components/shared";
 
 // hooks
-import { useChallengeModal } from "@/common/hooks";
+import { useCreateChallengeModal } from "@/common/hooks";
 
 // lib / uitls
 import { CustomImageLoader } from "@/lib/utils";
@@ -16,7 +16,7 @@ import { CustomImageLoader } from "@/lib/utils";
 import logo from "@public/assets/logos/logo2.png";
 
 const Sidebar = () => {
-  const { open } = useChallengeModal();
+  const { open } = useCreateChallengeModal();
 
   return (
     <div id="sidebar" className="flex flex-col">

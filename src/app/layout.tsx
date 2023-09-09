@@ -12,6 +12,7 @@ import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { optimismGoerli } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
+import { ApolloProvider } from "@apollo/client";
 
 // styles
 import "./globals.css"; // app
@@ -21,13 +22,16 @@ import "@rainbow-me/rainbowkit/styles.css"; // rainbow kit
 import MainLayout from "@/components/layout";
 
 // shared components
-import { CreateChallengeModal } from "@/components/shared";
+import { CreateChallengeModal, JoinChallengeModal } from "@/components/shared";
 
 // ui components
 import { Toaster } from "@/components/ui/toaster";
 
 // providers
 import { GlobalAppProvider } from "@/common/contexts/global-context";
+
+// clients
+import glaphqlClient from "@/common/graphql-client";
 
 // types
 import { AppData } from "@/common/types";
@@ -56,7 +60,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [appData, setAppData] = useState<AppData>({
-    challengeModalOpen: false,
+    createChallengeModalOpen: false,
+    joinChallengeModalOpen: false,
   });
 
   return (
@@ -74,15 +79,19 @@ export default function RootLayout({
               overlayBlur: "small",
             })}
           >
-            {/* global context */}
-            <GlobalAppProvider value={{ appData, setAppData }}>
-              {/* layout */}
-              <MainLayout>{children}</MainLayout>
-              {/* modals */}
-              <CreateChallengeModal />
-              {/* toast */}
-              <Toaster />
-            </GlobalAppProvider>
+            {/* apollo provider */}
+            <ApolloProvider client={glaphqlClient}>
+              {/* global context */}
+              <GlobalAppProvider value={{ appData, setAppData }}>
+                {/* layout */}
+                <MainLayout>{children}</MainLayout>
+                {/* modals */}
+                <JoinChallengeModal />
+                <CreateChallengeModal />
+                {/* toast */}
+                <Toaster />
+              </GlobalAppProvider>
+            </ApolloProvider>
           </RainbowKitProvider>
         </WagmiConfig>
       </body>

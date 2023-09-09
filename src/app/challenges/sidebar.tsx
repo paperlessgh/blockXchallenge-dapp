@@ -6,12 +6,17 @@ import { useSearchParams } from 'next/navigation'
 // imports
 import { VerifiedIcon } from "lucide-react";
 
+// hooks
+import { useJoinChallengeModal } from "@/common/hooks";
+
 // lib / uitls
 import { CustomImageLoader } from "@/lib/utils";
 
 const Sidebar = () => {
   const searchParams = useSearchParams();
   const challengeId = searchParams.get('id');
+
+  const { open } = useJoinChallengeModal();
 
   return (
     <div className="float-left w-full lg:w-1/4">
@@ -52,6 +57,7 @@ const Sidebar = () => {
                   <div className="w-full md:max-w-[180px] lg:max-w-none">
                     <button
                       type="button"
+                      onClick={open}
                       className="button px-[22px] button--primary hover:brightness-95 w-full md:max-w-[180px] lg:max-w-none group min-w-[125px]"
                     >
                       <span>Join</span>

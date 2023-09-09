@@ -8,27 +8,27 @@ import GlobalAppContext from "../contexts/global-context";
 import type { AppData } from "@/common/types";
 
 // hooks
-const useChallengeModal = () => {
+const useJoinChallengeModal = () => {
   const { appData, setAppData } = useContext(GlobalAppContext);
 
   const openModal = () => {
-    setAppData((prev: AppData) => ({ ...prev, challengeModalOpen: true }));
+    setAppData((prev: AppData) => ({ ...prev, joinChallengeModalOpen: true }));
   };
 
   const closeModal = () => {
-    setAppData((prev: AppData) => ({ ...prev, challengeModalOpen: false }));
+    setAppData((prev: AppData) => ({ ...prev, joinChallengeModalOpen: false }));
   };
 
   const setOpen = (isOpen: boolean) => {
-    setAppData((prev: AppData) => ({ ...prev, challengeModalOpen: isOpen }));
+    setAppData((prev: AppData) => ({ ...prev, joinChallengeModalOpen: isOpen }));
   };
 
   return {
-    isOpen: appData.challengeModalOpen,
+    isOpen: appData.joinChallengeModalOpen,
     open: openModal,
     close: closeModal,
     setOpen,
   };
 };
 
-export default useChallengeModal;
+export default useJoinChallengeModal;

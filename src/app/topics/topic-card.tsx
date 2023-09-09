@@ -1,3 +1,5 @@
+// react
+import { FC } from "react";
 // next
 import Link from "next/link";
 import Image from "next/image";
@@ -5,7 +7,13 @@ import Image from "next/image";
 // lib / uitls
 import { CustomImageLoader } from "@/lib/utils";
 
-const TopicCard = () => {
+// types
+import { Topic } from "@/common/types/graphql";
+type TopicCardProps = {
+  topic: Topic;
+};
+
+const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   return (
     <div>
       <Link href="/?topic=1">
@@ -26,7 +34,7 @@ const TopicCard = () => {
             </div>
             <div className="flex items-center justify-center gap-1 truncate">
               <h3 className="mb-0 mt-0 !h-[32px] overflow-hidden pb-0 text-[22px] leading-8">
-                Topic Name
+                {topic.title}
               </h3>
             </div>
             <div className="mb-[12px] text-skin-text">127K Challenges</div>

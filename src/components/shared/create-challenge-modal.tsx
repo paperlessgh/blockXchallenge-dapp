@@ -1,17 +1,22 @@
 "use client";
 
+// next
+import Link from "next/link";
 // imports
 import * as z from "zod";
 import {
   Address,
   useAccount,
   useConnect,
-  useContractRead,
   useContractWrite,
   useNetwork,
   useWaitForTransaction,
 } from "wagmi";
-import { encodePacked, parseEther } from "viem";
+import {
+  parseEther,
+  TransactionExecutionError,
+  UserRejectedRequestError,
+} from "viem";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
@@ -46,12 +51,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/components/ui/use-toast";
 
 // hooks
-import { useChallengeModal } from "@/common/hooks";
+import { useCreateChallengeModal } from "@/common/hooks";
 
 // schema
 const createChallengeFormSchema = z.object({
@@ -96,14 +100,12 @@ const defaultValues: Partial<CreateChallengeFormValues> = {
 
 const CreateChallengeModal = () => {
   // modal hooks
-  const { isOpen, setOpen, close: closeModal } = useChallengeModal();
+  const { isOpen, setOpen, close: closeModal } = useCreateChallengeModal();
 
   // web3 hooks
   const { openConnectModal, connectModalOpen } = useConnectModal();
   const { address, isConnected } = useAccount();
   const { chain } = useNetwork();
-  const { connect } = useConnect();
-  const { data } = useWaitForTransaction();
   const {
     data: createChallengeResult,
     writeAsync: createChallenge,
@@ -126,38 +128,63 @@ const CreateChallengeModal = () => {
   });
 
   // handlers
-  const onSubmit: SubmitHandler<CreateChallengeFormValues> = (data, event) => {
+  const onSubmit: SubmitHandler<CreateChallengeFormValues> = async (
+    data,
+    event
+  ) => {
     event?.preventDefault();
 
     const proposal = data.proposal * 1e8; // alway multiply proposal by 1e8
 
-    const param = data.param;
+    try {
+      const result = await createChallenge({
+        args: [
+          data.topicId,
+          new Date(data.maturity).getTime(),
+          data.param,
+          proposal,
+        ],
+        value: parseEther(data.stake),
+      });
 
-    const encodedProposal = encodePacked(["int"], [BigInt(proposal)]);
+      toast({
+        title: "Challenge Pool Created",
+        description: (
+          <div>
+            <div>
+              <span className="font-bold">Topic Id:</span> {data.topicId}
+            </div>
+            <div>
+              <span className="font-bold">Maturity:</span> {data.maturity}
+            </div>
+            <Link
+              href={`https://goerli-optimism.etherscan.io/tx/${result.hash}`}
+            >
+              View Transaction
+            </Link>
+          </div>
+        ),
+      });
 
-    const encodedParam = encodePacked(["string"], [param]);
+      form.reset(defaultValues);
+    } catch (error) {
+      let message = "Something went wrong.";
 
-    console.log("encodedProposal", encodedProposal);
+      if (error instanceof TransactionExecutionError) {
+        if (error.cause instanceof UserRejectedRequestError) {
+          // ignore
+          return;
+        }
+      }
 
-    console.log("encodedParam", encodedParam);
-
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-
-    const result = createChallenge({
-      args: [data.topicId, data.maturity, encodedParam, encodedProposal],
-      value: parseEther(data.stake),
-    });
-
-    console.log({
-      result,
-    });
+      toast({
+        title: "Error",
+        description: message,
+      });
+      console.log({
+        error,
+      });
+    }
   };
 
   return (
@@ -191,9 +218,7 @@ const CreateChallengeModal = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="0">Topic 1</SelectItem>
-                      <SelectItem value="1">Topic 2</SelectItem>
-                      <SelectItem value="2">Topic 3</SelectItem>
+                      <SelectItem value="1">Topic 1</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormDescription className="text-skin-text">
@@ -301,7 +326,11 @@ const CreateChallengeModal = () => {
                     }
                   : {})}
               >
-                {isConnected ? "Create Challenge" : "Connect Wallet"}
+                {!isConnected
+                  ? "Connect Wallet"
+                  : isCreateChallengeLoading
+                  ? "Loading"
+                  : "Create Challenge"}
               </Button>
             </DialogFooter>
           </form>

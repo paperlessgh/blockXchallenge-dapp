@@ -1,3 +1,5 @@
+"use client";
+
 // react
 import { Dispatch, SetStateAction, createContext } from "react";
 
@@ -10,7 +12,8 @@ type GlobalContextType = {
 // context
 const GlobalAppContext = createContext<GlobalContextType>({
   appData: {
-    challengeModalOpen: false,
+    joinChallengeModalOpen: false,
+    createChallengeModalOpen: false,
   },
   setAppData: (value: SetStateAction<AppData>) => {}
 });

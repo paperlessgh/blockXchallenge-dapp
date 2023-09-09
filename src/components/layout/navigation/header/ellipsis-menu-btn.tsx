@@ -5,10 +5,10 @@ import { Popover } from "@headlessui/react";
 import { MoreHorizontalIcon } from "lucide-react";
 
 // hooks
-import { useChallengeModal } from "@/common/hooks";
+import { useCreateChallengeModal } from "@/common/hooks";
 
 const EllipsisMenuButton = () => {
-  const { open } = useChallengeModal();
+  const { open } = useCreateChallengeModal();
 
   return (
     <Popover className="relative">
