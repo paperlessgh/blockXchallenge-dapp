@@ -1,16 +1,22 @@
 "use client";
 
+// react
+import { FC } from "react";
 // next
 import Link from "next/link";
 import Image from "next/image";
-import { useSearchParams } from 'next/navigation'
 
 // lib / utils
 import { CustomImageLoader } from "@/lib/utils";
 
-const Content = () => {
-  const searchParams = useSearchParams();
-  const challengeId = searchParams.get('id');
+// types
+import { Challenge } from "@/common/types/graphql";
+type ContentProps = {
+  challenge?: Challenge;
+};
+
+
+const Content: FC<ContentProps> = ({challenge}) => {
 
   return (
     <div
@@ -25,38 +31,8 @@ const Content = () => {
             <div className="space-y-3">
               <div>
                 <span>
-                  Discover community-vetted Web3 apps, games, &amp; rewards on
-                  Magic Square, a DAO Discovery &amp; Engagement Web3 App Store.
-                  Vote to contribute and revolutionize Web3.
+                 {challenge?.topic?.description}
                 </span>
-              </div>
-              <div>
-                <h4 className="mb-1 text-skin-link">Terms of service</h4>
-                <a
-                  href="https://docs.magic.store/library/terms-and-conditions"
-                  target="_blank"
-                  className="whitespace-nowrap flex items-center text-skin-text hover:text-skin-link"
-                  rel="noopener noreferrer"
-                >
-                  <div className="max-w-[300px] truncate">
-                    https://docs.magic.store/library/terms-and-conditions
-                  </div>
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="1.2em"
-                    height="1.2em"
-                    className="mb-[2px] ml-1 inline-block text-xs"
-                  >
-                    <path
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    ></path>
-                  </svg>
-                </a>
               </div>
             </div>
           </div>
@@ -67,15 +43,15 @@ const Content = () => {
             <h4 className="flex items-center">
               <div>Participants</div>
               <div className="h-[20px] min-w-[20px] rounded-full bg-skin-text px-1 text-center text-xs leading-normal text-white ml-1 inline-block">
-                4
+                {challenge?.participants?.length}
               </div>
             </h4>
             <div className="flex items-center"></div>
           </div>
           <div className="leading-5 sm:leading-6">
-            {new Array(4).fill(0).map((_, i) => (
+            {challenge?.participants.map((participant, i) => (
               <div
-                key={i}
+                key={participant.id}
                 className="flex justify-between border-t px-4 py-3 first:border-t-0"
               >
                 <div data-headlessui-state="">
@@ -103,7 +79,7 @@ const Content = () => {
                           />
                         </div>
                         <span className="w-full cursor-pointer truncate text-skin-link">
-                          0xf432...6740
+                          {participant?.id}
                         </span>
                       </div>
                     </Link>
@@ -111,7 +87,7 @@ const Content = () => {
                 </div>
                 <div className="space-x-2">
                   <span className="rounded-full bg-skin-text px-2 text-center text-xs leading-5 text-white cursor-help py-1">
-                    author
+                    member
                   </span>
                 </div>
               </div>

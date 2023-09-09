@@ -32,12 +32,12 @@ const TopicCard: FC<TopicCardProps> = ({ topic }) => {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-center gap-1 truncate">
+            <div className="mb-4 flex items-center justify-center gap-1 truncate">
               <h3 className="mb-0 mt-0 !h-[32px] overflow-hidden pb-0 text-[22px] leading-8">
                 {topic.title}
               </h3>
             </div>
-            <div className="mb-[12px] text-skin-text">127K Challenges</div>
+            {/* <div className="mb-[12px] text-skin-text">127K Challenges</div> */}
             <div className="mx-auto">
               <Link
                 href="/?topic=1"

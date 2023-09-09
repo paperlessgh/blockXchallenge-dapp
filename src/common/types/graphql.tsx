@@ -33,15 +33,13 @@ export type Challenge = {
   __typename?: 'Challenge';
   createdAt: Scalars['BigInt']['output'];
   id: Scalars['String']['output'];
-  losers: Array<Scalars['Bytes']['output']>;
   maturity: Scalars['BigInt']['output'];
   params: Scalars['String']['output'];
   participants: Array<ParticipantChallenge>;
   results: Scalars['BigInt']['output'];
   stake: Scalars['BigInt']['output'];
   state: Scalars['Int']['output'];
-  topicId: Scalars['BigInt']['output'];
-  winners: Array<Scalars['Bytes']['output']>;
+  topic: Topic;
 };
 
 
@@ -85,12 +83,6 @@ export type Challenge_Filter = {
   id_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
   id_starts_with?: InputMaybe<Scalars['String']['input']>;
   id_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  losers?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  losers_contains?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  losers_contains_nocase?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  losers_not?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  losers_not_contains?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  losers_not_contains_nocase?: InputMaybe<Array<Scalars['Bytes']['input']>>;
   maturity?: InputMaybe<Scalars['BigInt']['input']>;
   maturity_gt?: InputMaybe<Scalars['BigInt']['input']>;
   maturity_gte?: InputMaybe<Scalars['BigInt']['input']>;
@@ -145,34 +137,45 @@ export type Challenge_Filter = {
   state_lte?: InputMaybe<Scalars['Int']['input']>;
   state_not?: InputMaybe<Scalars['Int']['input']>;
   state_not_in?: InputMaybe<Array<Scalars['Int']['input']>>;
-  topicId?: InputMaybe<Scalars['BigInt']['input']>;
-  topicId_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  topicId_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  topicId_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  topicId_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  topicId_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  topicId_not?: InputMaybe<Scalars['BigInt']['input']>;
-  topicId_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  winners?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  winners_contains?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  winners_contains_nocase?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  winners_not?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  winners_not_contains?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  winners_not_contains_nocase?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  topic?: InputMaybe<Scalars['String']['input']>;
+  topic_?: InputMaybe<Topic_Filter>;
+  topic_contains?: InputMaybe<Scalars['String']['input']>;
+  topic_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  topic_ends_with?: InputMaybe<Scalars['String']['input']>;
+  topic_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  topic_gt?: InputMaybe<Scalars['String']['input']>;
+  topic_gte?: InputMaybe<Scalars['String']['input']>;
+  topic_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  topic_lt?: InputMaybe<Scalars['String']['input']>;
+  topic_lte?: InputMaybe<Scalars['String']['input']>;
+  topic_not?: InputMaybe<Scalars['String']['input']>;
+  topic_not_contains?: InputMaybe<Scalars['String']['input']>;
+  topic_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  topic_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  topic_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  topic_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  topic_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  topic_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  topic_starts_with?: InputMaybe<Scalars['String']['input']>;
+  topic_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum Challenge_OrderBy {
   CreatedAt = 'createdAt',
   Id = 'id',
-  Losers = 'losers',
   Maturity = 'maturity',
   Params = 'params',
   Participants = 'participants',
   Results = 'results',
   Stake = 'stake',
   State = 'state',
-  TopicId = 'topicId',
-  Winners = 'winners'
+  Topic = 'topic',
+  TopicDescription = 'topic__description',
+  TopicEvaluator = 'topic__evaluator',
+  TopicId = 'topic__id',
+  TopicMaintainer = 'topic__maintainer',
+  TopicState = 'topic__state',
+  TopicTitle = 'topic__title'
 }
 
 /** Defines the order direction, either ascending or descending */
@@ -281,7 +284,6 @@ export enum ParticipantChallenge_OrderBy {
   ChallengeResults = 'challenge__results',
   ChallengeStake = 'challenge__stake',
   ChallengeState = 'challenge__state',
-  ChallengeTopicId = 'challenge__topicId',
   Id = 'id',
   Participant = 'participant',
   ParticipantId = 'participant__id'
@@ -505,9 +507,9 @@ export type SubscriptionTopicsArgs = {
 export type Topic = {
   __typename?: 'Topic';
   description: Scalars['String']['output'];
-  evaluator: Scalars['Bytes']['output'];
+  evaluator: Scalars['String']['output'];
   id: Scalars['String']['output'];
-  maintainer: Scalars['Bytes']['output'];
+  maintainer: Scalars['String']['output'];
   state: Scalars['Int']['output'];
   title: Scalars['String']['output'];
 };
@@ -536,16 +538,26 @@ export type Topic_Filter = {
   description_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
   description_starts_with?: InputMaybe<Scalars['String']['input']>;
   description_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  evaluator?: InputMaybe<Scalars['Bytes']['input']>;
-  evaluator_contains?: InputMaybe<Scalars['Bytes']['input']>;
-  evaluator_gt?: InputMaybe<Scalars['Bytes']['input']>;
-  evaluator_gte?: InputMaybe<Scalars['Bytes']['input']>;
-  evaluator_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  evaluator_lt?: InputMaybe<Scalars['Bytes']['input']>;
-  evaluator_lte?: InputMaybe<Scalars['Bytes']['input']>;
-  evaluator_not?: InputMaybe<Scalars['Bytes']['input']>;
-  evaluator_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
-  evaluator_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  evaluator?: InputMaybe<Scalars['String']['input']>;
+  evaluator_contains?: InputMaybe<Scalars['String']['input']>;
+  evaluator_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  evaluator_ends_with?: InputMaybe<Scalars['String']['input']>;
+  evaluator_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  evaluator_gt?: InputMaybe<Scalars['String']['input']>;
+  evaluator_gte?: InputMaybe<Scalars['String']['input']>;
+  evaluator_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  evaluator_lt?: InputMaybe<Scalars['String']['input']>;
+  evaluator_lte?: InputMaybe<Scalars['String']['input']>;
+  evaluator_not?: InputMaybe<Scalars['String']['input']>;
+  evaluator_not_contains?: InputMaybe<Scalars['String']['input']>;
+  evaluator_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  evaluator_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  evaluator_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  evaluator_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  evaluator_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  evaluator_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  evaluator_starts_with?: InputMaybe<Scalars['String']['input']>;
+  evaluator_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   id_contains?: InputMaybe<Scalars['String']['input']>;
   id_contains_nocase?: InputMaybe<Scalars['String']['input']>;
@@ -566,16 +578,26 @@ export type Topic_Filter = {
   id_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
   id_starts_with?: InputMaybe<Scalars['String']['input']>;
   id_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  maintainer?: InputMaybe<Scalars['Bytes']['input']>;
-  maintainer_contains?: InputMaybe<Scalars['Bytes']['input']>;
-  maintainer_gt?: InputMaybe<Scalars['Bytes']['input']>;
-  maintainer_gte?: InputMaybe<Scalars['Bytes']['input']>;
-  maintainer_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  maintainer_lt?: InputMaybe<Scalars['Bytes']['input']>;
-  maintainer_lte?: InputMaybe<Scalars['Bytes']['input']>;
-  maintainer_not?: InputMaybe<Scalars['Bytes']['input']>;
-  maintainer_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
-  maintainer_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  maintainer?: InputMaybe<Scalars['String']['input']>;
+  maintainer_contains?: InputMaybe<Scalars['String']['input']>;
+  maintainer_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  maintainer_ends_with?: InputMaybe<Scalars['String']['input']>;
+  maintainer_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  maintainer_gt?: InputMaybe<Scalars['String']['input']>;
+  maintainer_gte?: InputMaybe<Scalars['String']['input']>;
+  maintainer_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  maintainer_lt?: InputMaybe<Scalars['String']['input']>;
+  maintainer_lte?: InputMaybe<Scalars['String']['input']>;
+  maintainer_not?: InputMaybe<Scalars['String']['input']>;
+  maintainer_not_contains?: InputMaybe<Scalars['String']['input']>;
+  maintainer_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  maintainer_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  maintainer_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  maintainer_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  maintainer_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  maintainer_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  maintainer_starts_with?: InputMaybe<Scalars['String']['input']>;
+  maintainer_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
   or?: InputMaybe<Array<InputMaybe<Topic_Filter>>>;
   state?: InputMaybe<Scalars['Int']['input']>;
   state_gt?: InputMaybe<Scalars['Int']['input']>;
