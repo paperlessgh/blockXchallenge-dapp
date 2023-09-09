@@ -5,6 +5,7 @@ import { FC } from "react";
 // next
 import Image from "next/image";
 // imports
+import { formatEther } from "viem";
 import { VerifiedIcon } from "lucide-react";
 
 // hooks
@@ -21,6 +22,8 @@ type SidebarProps = {
 
 const Sidebar: FC<SidebarProps> = ({ challenge }) => {
   const { open } = useJoinChallengeModal();
+
+  if (!challenge) return null;
 
   return (
     <div className="float-left w-full lg:w-1/4">
@@ -44,7 +47,7 @@ const Sidebar: FC<SidebarProps> = ({ challenge }) => {
                   <div className="mt-2 truncate text-left">
                     <h3 className="my-0 flex items-center text-2xl leading-[44px] lg:text-lg">
                       <div className="mr-1 truncate">
-                        {challenge?.topic?.title}
+                        {challenge.topic.title}
                       </div>
                       <div className="cursor-help">
                         <VerifiedIcon
@@ -55,7 +58,7 @@ const Sidebar: FC<SidebarProps> = ({ challenge }) => {
                       </div>
                     </h3>
                     <div className="text-md text-skin-text lg:text-base">
-                      {challenge?.participants?.length} Participating
+                      {challenge.participants.length} Participating
                     </div>
                   </div>
                 </div>
@@ -76,7 +79,35 @@ const Sidebar: FC<SidebarProps> = ({ challenge }) => {
                   <div className="group relative flex justify-between whitespace-nowrap px-[20px] py-2 text-skin-text hover:bg-skin-bg lg:px-3">
                     <span className="!text-skin-heading">Participants</span>
                     <div className="ml-auto">
-                      {challenge?.participants?.length}
+                      {challenge.participants.length}
+                    </div>
+                  </div>
+                </div>
+                <div className="router-link-active">
+                  <div className="group relative flex justify-between whitespace-nowrap px-[20px] py-2 text-skin-text hover:bg-skin-bg lg:px-3">
+                    <span className="!text-skin-heading">State</span>
+                    <div className="ml-auto">
+                      {challenge.state == 0
+                    ? "Open"
+                    : challenge.state == 1
+                    ? "Close"
+                    : "Stale"}
+                    </div>
+                  </div>
+                </div>
+                <div className="router-link-active">
+                  <div className="group relative flex justify-between whitespace-nowrap px-[20px] py-2 text-skin-text hover:bg-skin-bg lg:px-3">
+                    <span className="!text-skin-heading">Asset</span>
+                    <div className="ml-auto">
+                      {challenge.params}
+                    </div>
+                  </div>
+                </div>
+                <div className="router-link-active">
+                  <div className="group relative flex justify-between whitespace-nowrap px-[20px] py-2 text-skin-text hover:bg-skin-bg lg:px-3">
+                    <span className="!text-skin-heading">Stake</span>
+                    <div className="ml-auto">
+                      {formatEther(challenge.stake)} Eth
                     </div>
                   </div>
                 </div>
@@ -84,7 +115,11 @@ const Sidebar: FC<SidebarProps> = ({ challenge }) => {
                   <div className="group relative flex justify-between whitespace-nowrap px-[20px] py-2 text-skin-text  hover:bg-skin-bg lg:px-3">
                     <span className="!text-skin-heading">Total Stake</span>
                     <div className="ml-auto">
-                      {challenge?.stake / 18}{" "}
+                      {formatEther(
+                        BigInt(
+                          challenge?.stake * challenge?.participants?.length
+                        )
+                      )}{" "}
                       Eth
                     </div>
                   </div>

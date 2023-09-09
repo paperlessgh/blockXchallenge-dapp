@@ -13,7 +13,7 @@ import { useJoinChallengeModal } from "@/common/hooks";
 import { CustomImageLoader } from "@/lib/utils";
 
 // imports
-import { parseGwei } from "viem";
+import { formatEther } from "viem";
 
 // types
 import { Challenge } from "@/common/types/graphql";
@@ -78,13 +78,13 @@ const ChallengeItem: FC<ChallengeItemProps> = ({ challenge }) => {
               <div className="w-full my-2 border-b border-dashed border-skin-text" />
               <div className="flex items-center justify-between gap-3">
                 <span className="text-skin-link">Stake:</span>
-                <span>{challenge.stake / 18} ETH</span>
+                <span>{formatEther(BigInt(challenge.stake))} ETH</span>
               </div>
               <div className="w-full my-2 border-b border-dashed border-skin-text" />
               <div className="flex items-center justify-between gap-3">
                 <span className="text-skin-link">Pool:</span>
                 <span>
-                  {(challenge.stake / 18) * challenge.participants.length} ETH
+                  {formatEther(BigInt(challenge.stake * challenge.participants.length))} ETH
                 </span>
               </div>
               <div className="w-full my-2 border-b border-dashed border-skin-text" />
