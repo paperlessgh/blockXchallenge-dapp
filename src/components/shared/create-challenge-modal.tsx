@@ -13,6 +13,7 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import {
+  ContractFunctionExecutionError,
   parseEther,
   TransactionExecutionError,
   UserRejectedRequestError,
@@ -170,11 +171,15 @@ const CreateChallengeModal = () => {
     } catch (error) {
       let message = "Something went wrong.";
 
-      if (error instanceof TransactionExecutionError) {
+      if (
+        error instanceof TransactionExecutionError ||
+        error instanceof ContractFunctionExecutionError
+      ) {
         if (error.cause instanceof UserRejectedRequestError) {
           // ignore
           return;
         }
+        message = error.cause.message;
       }
 
       toast({
