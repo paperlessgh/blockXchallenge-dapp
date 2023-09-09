@@ -6,11 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "graphql-codegen --config codegen.ts",
+    "codegen": "get-graphql-schema https://api.studio.thegraph.com/query/52333/challenge-pool/4 > schema.graphql && graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.14",
     "@headlessui/react": "^1.7.17",
     "@hookform/resolvers": "^3.3.1",
+    "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-select": "^1.2.2",
@@ -26,6 +30,7 @@
     "clsx": "^2.0.0",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "graphql": "^16.8.0",
     "lucide-react": "^0.274.0",
     "next": "13.4.19",
     "postcss": "8.4.29",
@@ -39,5 +44,11 @@
     "viem": "^1.10.8",
     "wagmi": "^1.4.1",
     "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "get-graphql-schema": "^2.1.2",
+    "graphql-codegen": "^0.4.0"
   }
 }

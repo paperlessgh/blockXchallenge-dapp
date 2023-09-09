@@ -12,6 +12,7 @@ type IconButtonProps = PropsWithChildren<{
   className?: string;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  onClick?: () => void;
 }>;
 
 const IconButton: FC<IconButtonProps> = ({
@@ -19,6 +20,7 @@ const IconButton: FC<IconButtonProps> = ({
   className,
   type = "button",
   disabled = false,
+  onClick,
 }) => {
   return (
     <Button
@@ -26,6 +28,7 @@ const IconButton: FC<IconButtonProps> = ({
       size="icon"
       type={type}
       disabled={disabled}
+      onClick={onClick}
       className={cn(
         "w-10 h-10 flex cursor-pointer select-none items-center justify-center rounded-full border hover:bg-transparent hover:border-skin-text",
         className

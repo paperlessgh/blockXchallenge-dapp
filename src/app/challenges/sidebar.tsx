@@ -1,17 +1,26 @@
 "use client";
 
+// react
+import { FC } from "react";
 // next
 import Image from "next/image";
-import { useSearchParams } from 'next/navigation'
 // imports
 import { VerifiedIcon } from "lucide-react";
+
+// hooks
+import { useJoinChallengeModal } from "@/common/hooks";
 
 // lib / uitls
 import { CustomImageLoader } from "@/lib/utils";
 
-const Sidebar = () => {
-  const searchParams = useSearchParams();
-  const challengeId = searchParams.get('id');
+// types
+import { Challenge } from "@/common/types/graphql";
+type SidebarProps = {
+  challenge?: Challenge;
+};
+
+const Sidebar: FC<SidebarProps> = ({ challenge }) => {
+  const { open } = useJoinChallengeModal();
 
   return (
     <div className="float-left w-full lg:w-1/4">
@@ -34,7 +43,9 @@ const Sidebar = () => {
                   </div>
                   <div className="mt-2 truncate text-left">
                     <h3 className="my-0 flex items-center text-2xl leading-[44px] lg:text-lg">
-                      <div className="mr-1 truncate">Magic Square</div>
+                      <div className="mr-1 truncate">
+                        {challenge?.topic?.title}
+                      </div>
                       <div className="cursor-help">
                         <VerifiedIcon
                           size={20}
@@ -44,7 +55,7 @@ const Sidebar = () => {
                       </div>
                     </h3>
                     <div className="text-md text-skin-text lg:text-base">
-                      71K members
+                      {challenge?.participants?.length} Participating
                     </div>
                   </div>
                 </div>
@@ -52,6 +63,7 @@ const Sidebar = () => {
                   <div className="w-full md:max-w-[180px] lg:max-w-none">
                     <button
                       type="button"
+                      onClick={open}
                       className="button px-[22px] button--primary hover:brightness-95 w-full md:max-w-[180px] lg:max-w-none group min-w-[125px]"
                     >
                       <span>Join</span>
@@ -63,13 +75,18 @@ const Sidebar = () => {
                 <div className="router-link-active">
                   <div className="group relative flex justify-between whitespace-nowrap px-[20px] py-2 text-skin-text hover:bg-skin-bg lg:px-3">
                     <span className="!text-skin-heading">Participants</span>
-                    <div className="ml-auto">30</div>
+                    <div className="ml-auto">
+                      {challenge?.participants?.length}
+                    </div>
                   </div>
                 </div>
                 <div className="router-link-active router-link-exact-active">
                   <div className="group relative flex justify-between whitespace-nowrap px-[20px] py-2 text-skin-text  hover:bg-skin-bg lg:px-3">
                     <span className="!text-skin-heading">Total Stake</span>
-                    <div className="ml-auto">1k Eth</div>
+                    <div className="ml-auto">
+                      {challenge?.stake / 18}{" "}
+                      Eth
+                    </div>
                   </div>
                 </div>
               </div>

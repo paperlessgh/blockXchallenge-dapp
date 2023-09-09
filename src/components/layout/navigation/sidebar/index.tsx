@@ -6,6 +6,9 @@ import { XIcon, ActivityIcon, PlusIcon } from "lucide-react";
 // shared components
 import { IconButton } from "@/components/shared";
 
+// hooks
+import { useCreateChallengeModal } from "@/common/hooks";
+
 // lib / uitls
 import { CustomImageLoader } from "@/lib/utils";
 
@@ -13,6 +16,8 @@ import { CustomImageLoader } from "@/lib/utils";
 import logo from "@public/assets/logos/logo2.png";
 
 const Sidebar = () => {
+  const { open } = useCreateChallengeModal();
+
   return (
     <div id="sidebar" className="flex flex-col">
       <div className="sticky top-0 z-40 h-screen overflow-hidden bg-skin-bg transition-all sm:w-[60px] max-w-0 sm:max-w-none">
@@ -52,7 +57,7 @@ const Sidebar = () => {
           </div>
           {/* nav items */}
           <div className="flex flex-col items-center space-y-2 px-[10px]">
-            <IconButton>
+            <IconButton onClick={open}>
               <PlusIcon
                 width="1.2em"
                 height="1.2em"

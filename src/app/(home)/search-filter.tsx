@@ -62,7 +62,7 @@ const SearchFilter = () => {
             />
           </Menu.Button>
           <div
-            className="absolute z-50 inset-[0px_auto_auto_0px] transform translate-x-[648px] translate-y-[54px]"
+            className="absolute z-50 transform translate-y-[12px]"
           >
             <Menu.Items className="overflow-hidden rounded-2xl border bg-skin-header-bg shadow-lg outline-none">
               <div className="no-scrollbar max-h-[300px] overflow-auto">
