@@ -1,11 +1,23 @@
+// react
+import {useState} from "react";
 // imports
 import { SlidersHorizontalIcon } from "lucide-react";
+
+// hooks
+import { useChallenges } from "@/common/hooks";
 
 // components
 import Filter from "./filter";
 import Challenges from "./challenges";
 
 export default function Home() {
+  // const []
+  // const { data: challenges, loading } = useChallenges({
+  //   variables: {
+  //     first: 9,
+  //   },
+  // });
+
   return (
     <div className="relative">
       <div className="px-4 mx-auto max-w-[1012px] mb-4 flex flex-col flex-wrap items-center xs:flex-row md:flex-nowrap">

@@ -6,6 +6,7 @@ import GlobalAppContext from "../contexts/global-context";
 
 // types
 import type { AppData } from "@/common/types";
+import type { Challenge } from "@/common/types/graphql";
 
 // hooks
 const useJoinChallengeModal = () => {
@@ -23,11 +24,17 @@ const useJoinChallengeModal = () => {
     setAppData((prev: AppData) => ({ ...prev, joinChallengeModalOpen: isOpen }));
   };
 
+  const setChallenge = (challenge: Challenge) => {
+    setAppData((prev: AppData) => ({ ...prev, selectedJoinChallenge: challenge }));
+  };
+
   return {
     isOpen: appData.joinChallengeModalOpen,
     open: openModal,
     close: closeModal,
     setOpen,
+    challenge: appData.selectedJoinChallenge,
+    setChallenge,
   };
 };
 

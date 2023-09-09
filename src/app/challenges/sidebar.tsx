@@ -21,7 +21,7 @@ type SidebarProps = {
 };
 
 const Sidebar: FC<SidebarProps> = ({ challenge }) => {
-  const { open } = useJoinChallengeModal();
+  const { open, setChallenge } = useJoinChallengeModal();
 
   if (!challenge) return null;
 
@@ -66,7 +66,10 @@ const Sidebar: FC<SidebarProps> = ({ challenge }) => {
                   <div className="w-full md:max-w-[180px] lg:max-w-none">
                     <button
                       type="button"
-                      onClick={open}
+                      onClick={() => {
+                        setChallenge(challenge);
+                        open();
+                      }}
                       className="button px-[22px] button--primary hover:brightness-95 w-full md:max-w-[180px] lg:max-w-none group min-w-[125px]"
                     >
                       <span>Join</span>
@@ -88,19 +91,17 @@ const Sidebar: FC<SidebarProps> = ({ challenge }) => {
                     <span className="!text-skin-heading">State</span>
                     <div className="ml-auto">
                       {challenge.state == 0
-                    ? "Open"
-                    : challenge.state == 1
-                    ? "Close"
-                    : "Stale"}
+                        ? "Open"
+                        : challenge.state == 1
+                        ? "Close"
+                        : "Stale"}
                     </div>
                   </div>
                 </div>
                 <div className="router-link-active">
                   <div className="group relative flex justify-between whitespace-nowrap px-[20px] py-2 text-skin-text hover:bg-skin-bg lg:px-3">
                     <span className="!text-skin-heading">Asset</span>
-                    <div className="ml-auto">
-                      {challenge.params}
-                    </div>
+                    <div className="ml-auto">{challenge.params}</div>
                   </div>
                 </div>
                 <div className="router-link-active">

@@ -62,6 +62,7 @@ export default function RootLayout({
   const [appData, setAppData] = useState<AppData>({
     createChallengeModalOpen: false,
     joinChallengeModalOpen: false,
+    selectedJoinChallenge: null,
   });
 
   return (

@@ -14,6 +14,7 @@ const GlobalAppContext = createContext<GlobalContextType>({
   appData: {
     joinChallengeModalOpen: false,
     createChallengeModalOpen: false,
+    selectedJoinChallenge: null,
   },
   setAppData: (value: SetStateAction<AppData>) => {}
 });

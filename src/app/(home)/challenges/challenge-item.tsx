@@ -22,7 +22,7 @@ type ChallengeItemProps = {
 };
 
 const ChallengeItem: FC<ChallengeItemProps> = ({ challenge }) => {
-  const { open } = useJoinChallengeModal();
+  const { open, setChallenge } = useJoinChallengeModal();
 
   // format date
   const date = new Date(challenge.maturity * 1000);
@@ -96,7 +96,10 @@ const ChallengeItem: FC<ChallengeItemProps> = ({ challenge }) => {
             <div className="mx-auto">
               <button
                 type="button"
-                onClick={open}
+                onClick={() => {
+                  setChallenge(challenge);
+                  open();
+                }}
                 className="button px-[22px] mx-auto group min-w-[125px]"
               >
                 <span>Join</span>
