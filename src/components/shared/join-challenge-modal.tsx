@@ -14,8 +14,9 @@ import {
 } from "wagmi";
 import {
   parseEther,
-  TransactionExecutionError,
   UserRejectedRequestError,
+  TransactionExecutionError,
+  ContractFunctionExecutionError,
 } from "viem";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -76,7 +77,12 @@ const defaultValues: Partial<JoinChallengeFormValues> = {
 
 const JoinChallengeModal = () => {
   // modal hooks
-  const { isOpen, close: closeModal, setOpen } = useJoinChallengeModal();
+  const {
+    isOpen,
+    close: closeModal,
+    setOpen,
+    challenge,
+  } = useJoinChallengeModal();
 
   // web3 hooks
   const { openConnectModal, connectModalOpen } = useConnectModal();
@@ -110,13 +116,17 @@ const JoinChallengeModal = () => {
   ) => {
     event?.preventDefault();
 
-    const challengeId = 2; // todo get the challenge id from the from challenge data
+    if (!isConnected || !challenge) {
+      return;
+    }
+
+    const challengeId = challenge.id; // todo get the challenge id from the from challenge data
     const proposal = data.proposal * 1e8; // alway multiply proposal by 1e8
 
     try {
       const result = await joinChallenge({
         args: [challengeId, proposal],
-        value: parseEther("0.1"), // todo get the stake from the from challenge data
+        value: parseEther(challenge.stake), // todo get the stake from the from challenge data
       });
 
       toast({
@@ -136,11 +146,15 @@ const JoinChallengeModal = () => {
     } catch (error) {
       let message = "Something went wrong.";
 
-      if (error instanceof TransactionExecutionError) {
+      if (
+        error instanceof TransactionExecutionError ||
+        error instanceof ContractFunctionExecutionError
+      ) {
         if (error.cause instanceof UserRejectedRequestError) {
           // ignore
           return;
         }
+        message = error.cause.message;
       }
 
       toast({
@@ -153,15 +167,19 @@ const JoinChallengeModal = () => {
     }
   };
 
+  if (!challenge) {
+    return null;
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogContent className="!max-h-[700px] bg-skin-bg border-skin-border sm:max-w-2xl overflow-y-scroll">
         <DialogHeader>
           <DialogTitle className="text-2xl font-medium">
-            Join Challenge Pool
+            Join {challenge?.topic.title} Challenge Pool
           </DialogTitle>
           <DialogDescription className="text-base text-muted-foreground">
-            Join a challenge pool to earn rewards.
+            {challenge?.topic.description}
           </DialogDescription>
           <Separator className="opacity-60" />
         </DialogHeader>
